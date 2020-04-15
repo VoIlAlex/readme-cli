@@ -5,15 +5,7 @@ from appdata import AppDataPaths
 from loguru import logger
 
 
-@click.command()
-@click.argument('readme-variant', type=click.Choice(['small', 'medium', 'large']), default='medium')
-@click.option('-p', '--print', 'print_', is_flag=True)
-@click.option('-n', '--name', default=os.path.split(os.getcwd())[-1])
-@click.option('-d', '--description', required=False)
-@click.option('-f', '--fullname', required=False)
-@click.option('-k', '--nickname', required=False)
-@click.option('-l', '--license', required=False)
-def cli(readme_variant, print_, name, description, fullname, nickname, license):
+def main(readme_variant, print_, name, description, fullname, nickname, license):
     app_data_paths = AppDataPaths(
         app_name='readme',
         root_appdata='.opensource',
@@ -31,7 +23,7 @@ def cli(readme_variant, print_, name, description, fullname, nickname, license):
     )
     try:
         readme_content = manager.get(
-            readme_variant, 
+            readme_variant,
             project_name=name,
             project_description=description,
             author_fullname=fullname,
@@ -46,3 +38,14 @@ def cli(readme_variant, print_, name, description, fullname, nickname, license):
     else:
         with open('./README.md', 'w+') as f:
             f.write(readme_content)
+
+@click.command()
+@click.argument('readme-variant', type=click.Choice(['small', 'medium', 'large']), default='medium')
+@click.option('-p', '--print', 'print_', is_flag=True)
+@click.option('-n', '--name', default=os.path.split(os.getcwd())[-1])
+@click.option('-d', '--description', required=False)
+@click.option('-f', '--fullname', required=False)
+@click.option('-k', '--nickname', required=False)
+@click.option('-l', '--license', required=False)
+def cli(*args, **kwargs):
+    main(*args, **kwargs)
