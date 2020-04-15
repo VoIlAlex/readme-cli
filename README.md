@@ -15,10 +15,16 @@ pip install readme-cli
 Command to generate LICENSE.md file looks like:
 
 ```bash
+readme
+```
+
+Or you can specify a variant of the generated README.md:
+
+```bash
 readme <readme-variant>
 ```
 
-Where `<readme-veriant>` is one of:
+Where `<readme-variant>` is one of:
 
 * **small** - title, installation, usage
 * **medium** - title, installation, usage, license, contributing
